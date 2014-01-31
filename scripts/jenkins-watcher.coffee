@@ -2,17 +2,21 @@
 #   Fetches latest build of stable-ready-for-deploy and notifys users that are subscribed
 #
 # Commands:
-#   hubot jek
+#   hubot jenkins watch <revision>
+#     Watches <revision> and notifies you when done
+#
+#   hubot jenkins watching
+#     Gives the number of revisions, that the bot is waiting for
+#
+#   hubot jenkins start
+#     Starts Timer. Also done when you start watching
 #
 # Author:
-#   p0wl
+#   Paul Mölder
 
 module.exports = (robot) ->
 
   watcher = new JenkinsWatcher robot
-
-  robot.respond /jenkins fetch/i, () ->
-    watcher.fetchLastJob()
 
   robot.respond /jenkins watch (.*)/i, (msg) ->
     watcher.watchForUser msg.message.user.name, msg.match[1]
